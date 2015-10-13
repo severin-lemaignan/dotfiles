@@ -37,7 +37,7 @@ fi
 
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
-    xterm-color) color_prompt=yes;;
+    xterm-color|*-256color) color_prompt=yes;;
 esac
 
 ### GIT
@@ -133,6 +133,7 @@ export PYTHONPATH=$DEV_PREFIX/lib/python2.7/site-packages:$PYTHONPATH
 export PKG_CONFIG_PATH=$DEV_PREFIX/lib/pkgconfig
 
 alias cddev='cd $HOME/src'
+alias ccat='pygmentize -O style=monokai -f terminal256 -g'
 
 export LANG=C
 
@@ -176,3 +177,6 @@ export PATH=$ANDROID_ROOT/tools:$ANDROID_ROOT/platform-tools:$PATH
 # Nao
 export NAO_IP=192.168.2.101
 export PYTHONPATH=$HOME/applis/nao/pynaoqi-python2.7-2.1.3.3-linux64:$PYTHONPATH
+
+# MORSE
+alias morse='morse -c'
