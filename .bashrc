@@ -154,19 +154,22 @@ export QT_DEVICE_PIXEL_RATIO=2
 
 ### ROS
 
-export ROS_DEV=$HOME/ros-dev
+export ROS_BASE=$HOME/ros-jade-wily
 
-source $HOME/ros-jade-wily/setup.bash
+if [ -d $ROS_BASE ];
+then
+    export ROS_DEV=$HOME/ros-dev
+    source $ROS_BASE/setup.bash
 
-export ROS_PACKAGE_PATH=$ROS_DEV/share:$ROS_DEV/stacks:$ROS_PACKAGE_PATH
+    export ROS_PACKAGE_PATH=$ROS_DEV/share:$ROS_DEV/stacks:$ROS_PACKAGE_PATH
 
-export PATH=$ROS_DEV/bin:$PATH
-export LD_LIBRARY_PATH=$ROS_DEV/lib:$ROS_DEV/lib/x86_64-linux-gnu:$LD_LIBRARY_PATH
-export PKG_CONFIG_PATH=$ROS_DEV/lib/pkgconfig:$ROS_DEV/lib/x86_64-linux-gnu/pkgconfig:$PKG_CONFIG_PATH
-export PYTHONPATH=$ROS_DEV/lib/python2.7/dist-packages:$PYTHONPATH
-# seems important for ros to find the executable (ie, when trying rosrun PACKAGE EXECUTABLE for instance). wtf...
-export CMAKE_PREFIX_PATH=/home/skadge/ros-dev:$CMAKE_PREFIX_PATH
-
+    export PATH=$ROS_DEV/bin:$PATH
+    export LD_LIBRARY_PATH=$ROS_DEV/lib:$ROS_DEV/lib/x86_64-linux-gnu:$LD_LIBRARY_PATH
+    export PKG_CONFIG_PATH=$ROS_DEV/lib/pkgconfig:$ROS_DEV/lib/x86_64-linux-gnu/pkgconfig:$PKG_CONFIG_PATH
+    export PYTHONPATH=$ROS_DEV/lib/python2.7/dist-packages:$PYTHONPATH
+    # seems important for ros to find the executable (ie, when trying rosrun PACKAGE EXECUTABLE for instance). wtf...
+    export CMAKE_PREFIX_PATH=/home/skadge/ros-dev:$CMAKE_PREFIX_PATH
+fi
 
 ## Android
 
