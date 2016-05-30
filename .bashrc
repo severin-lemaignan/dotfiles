@@ -159,7 +159,7 @@ complete -F _quilt_completion $_quilt_complete_opt dquilt
 
 
 ## HIDPI for Qt
-export QT_DEVICE_PIXEL_RATIO=2
+export QT_DEVICE_PIXEL_RATIO=auto
 
 ### ROS
 
