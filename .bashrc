@@ -2,6 +2,8 @@
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
+export LANG=en_GB.UTF-8
+
 # If not running interactively, don't do anything
 case $- in
     *i*) ;;
@@ -133,9 +135,16 @@ export PYTHONPATH=$DEV_PREFIX/lib/python2.7/site-packages:$DEV_PREFIX/lib/python
 export PKG_CONFIG_PATH=$DEV_PREFIX/lib/pkgconfig
 
 alias cddev='cd $HOME/src'
-alias ccat='pygmentize -O style=monokai -f terminal256 -g'
 
-export LANG=C
+function ccat {
+    if file $1 | grep -q image
+    then
+        shellpic --shell24 $1
+    else
+        pygmentize -O style=monokai -f terminal256 -g $1
+    fi
+}
+
 
 # help bash remembering my passphrase
 eval `gnome-keyring-daemon --start`
