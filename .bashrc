@@ -131,6 +131,7 @@ fi
 ## General
 export DEV_PREFIX=$HOME/dev
 export PATH=$DEV_PREFIX/bin:$PATH
+export LD_LIBRARY_PATH=$DEV_PREFIX/lib:$LD_LIBRARY_PATH
 export PYTHONPATH=$DEV_PREFIX/lib/python2.7/site-packages:$DEV_PREFIX/lib/python3/dist-packages:$PYTHONPATH
 export PKG_CONFIG_PATH=$DEV_PREFIX/lib/pkgconfig
 
