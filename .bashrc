@@ -2,8 +2,6 @@
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
-export LANG=en_GB.UTF-8
-
 # If not running interactively, don't do anything
 case $- in
     *i*) ;;
@@ -130,22 +128,20 @@ fi
 
 ## General
 export DEV_PREFIX=$HOME/dev
-export PATH=$DEV_PREFIX/bin:$PATH
-export LD_LIBRARY_PATH=$DEV_PREFIX/lib:$LD_LIBRARY_PATH
-export PYTHONPATH=$DEV_PREFIX/lib/python2.7/site-packages:$DEV_PREFIX/lib/python3/dist-packages:$PYTHONPATH
+export PATH=$HOME/.local/bin:$DEV_PREFIX/bin:$PATH
+export PYTHONPATH=$DEV_PREFIX/lib/python2.7/site-packages:$DEV_PREFIX/lib/python3/site-packages:$PYTHONPATH
+export LD_LIBRARY_PATH=$DEV_PREFIX/lib:/usr/local/lib:$LD_LIBRARY_PATH
 export PKG_CONFIG_PATH=$DEV_PREFIX/lib/pkgconfig
 
-alias cddev='cd $HOME/src'
+function setpy3 {
+    export PYTHONPATH=$DEV_PREFIX/lib/python3.6/site-packages:$DEV_PREFIX/lib/python3/site-packages:$DEV_PREFIX/lib/python3.6/dist-packages:$DEV_PREFIX/lib/python3/dist-packages
 
-function ccat {
-    if file $1 | grep -q image
-    then
-        shellpic --shell24 $1
-    else
-        pygmentize -O style=monokai -f terminal256 -g $1
-    fi
 }
 
+alias cddev='cd $HOME/src'
+alias ccat='pygmentize -O style=monokai -f terminal256 -g'
+
+export LANG=en_GB.utf8
 
 # help bash remembering my passphrase
 eval `gnome-keyring-daemon --start`
@@ -158,18 +154,21 @@ alias dquilt="quilt --quiltrc=${HOME}/.quiltrc-dpkg"
 complete -F _quilt_completion $_quilt_complete_opt dquilt
 
 
+# cmake 3.9
+export PATH=/opt/cmake/bin:$PATH
 
 ## HIDPI for Qt
 export QT_DEVICE_PIXEL_RATIO=auto
 
 ### ROS
 
-export ROS_BASE=$HOME/ros-jade-wily
+#export ROS_BASE=/opt/ros/jade
+#export ROS_BASE=/opt/ros/kinetic
 
-if [ -d $ROS_BASE ];
-then
+#if [ -d $ROS_BASE ];
+#then
     export ROS_DEV=$HOME/ros-dev
-    source $ROS_BASE/setup.bash
+    #source $ROS_BASE/setup.bash
 
     export ROS_PACKAGE_PATH=$ROS_DEV/share:$ROS_DEV/stacks:$ROS_PACKAGE_PATH
 
@@ -178,8 +177,13 @@ then
     export PKG_CONFIG_PATH=$ROS_DEV/lib/pkgconfig:$ROS_DEV/lib/x86_64-linux-gnu/pkgconfig:$PKG_CONFIG_PATH
     export PYTHONPATH=$ROS_DEV/lib/python2.7/dist-packages:$PYTHONPATH
     # seems important for ros to find the executable (ie, when trying rosrun PACKAGE EXECUTABLE for instance). wtf...
-    export CMAKE_PREFIX_PATH=/home/skadge/ros-dev:$CMAKE_PREFIX_PATH
-fi
+    export CMAKE_PREFIX_PATH=$ROS_DEV:$CMAKE_PREFIX_PATH
+#fi
+
+
+## Cabal/Haskell
+export PATH=$HOME/.cabal/bin:$PATH
+
 
 ## Android
 
@@ -189,7 +193,32 @@ export PATH=$ANDROID_ROOT/tools:$ANDROID_ROOT/platform-tools:$PATH
 
 # Nao
 export NAO_IP=192.168.2.101
-export PYTHONPATH=$HOME/applis/nao/pynaoqi-python2.7-2.1.3.3-linux64:$PYTHONPATH
+export PYTHONPATH=$HOME/applis/nao/pynaoqi-python2.7-2.1.4.13-linux64:$PYTHONPATH
+
+# Attention! The import order between naoqi-sdk and pynaoqi is important! Otherwise, import error when calling 'import naoqi' from Python
+# with missing libicuuc.so.52
+#export LD_LIBRARY_PATH=$HOME/applis/nao/naoqi-sdk-2.1.4.13-linux64/lib:$HOME/applis/nao/pynaoqi-python2.7-2.1.4.13-linux64:$LD_LIBRARY_PATH
 
 # MORSE
 alias morse='morse -c'
+
+# CUDA
+# installed CUDA 8 from Ubuntu packages
+# cudnn: downloaded from Nvidia https://developer.nvidia.com/rdp/cudnn-download, then:
+export CUDA_HOME=$HOME/applis/cudnn-6
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$CUDA_HOME/lib64
+
+## Bazel (google build tool)
+#export PATH=$PATH:$HOME/.bazel/bin
+#source $HOME/.bazel/bin/bazel-complete.bash
+
+## GRPC
+
+# makes GRPC less verbose
+export GRPC_VERBOSITY=ERROR
+export LD_LIBRARY_PATH=/usr/local/cuda-8.0/lib64:$LD_LIBRARY_PATH
+export PATH=/usr/local/cuda-8.0/bin:$PATH
+
+export NVM_DIR="/home/slemaignan/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+

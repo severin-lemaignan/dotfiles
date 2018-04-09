@@ -1,0 +1,8 @@
+[user]
+	email = severin.lemaignan@uwe.ac.uk
+	name = Séverin Lemaignan
+[push]
+	default = simple
+[core]
+	editor = vim
+	autocrlf = input
