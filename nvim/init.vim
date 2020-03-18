@@ -1,5 +1,5 @@
 
-call plug#begin(stdpath('data') . '/plugged')
+call plug#begin(expand('~/.local/share/nvim/plugged'))
 
 " Fancy bar
 Plug 'vim-airline/vim-airline'
