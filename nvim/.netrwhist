@@ -1,0 +1,5 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =3
+let g:netrw_dirhist_1='/home/skadge/publications/2019-frontiers-wallbridge-generating-spatial-references'
+let g:netrw_dirhist_2='/home/skadge/publications/cogsysres-review'
+let g:netrw_dirhist_3='/home/skadge/publications/2020-hri-katie-gym-system'
