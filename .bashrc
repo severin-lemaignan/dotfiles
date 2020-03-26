@@ -138,6 +138,7 @@ export PKG_CONFIG_PATH=$DEV_PREFIX/lib/pkgconfig
 
 function setpy3 {
     export PYTHONPATH=$DEV_PREFIX/lib/python3.6/site-packages:$DEV_PREFIX/lib/python3/site-packages:$DEV_PREFIX/lib/python3.6/dist-packages:$DEV_PREFIX/lib/python3/dist-packages
+}
 
 function ccat {
     if file $1 | grep -q image
